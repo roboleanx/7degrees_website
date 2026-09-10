@@ -35,6 +35,10 @@ html { scroll-behavior: smooth; }
 image-slot { display: block; border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
 image-slot:hover { transform: translateY(-3px); box-shadow: 0 20px 48px color-mix(in srgb, var(--color-text) 18%, transparent); }
 
+.partner-logo image-slot, .partner-logo { border-radius: 0; }
+.partner-logo image-slot { mix-blend-mode: multiply; color: transparent; }
+.partner-logo image-slot:hover { transform: none; box-shadow: none; }
+
 .chip { border-radius: 999px; transition: background-color 0.2s ease, border-color 0.2s ease; }
 .chip:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
 
@@ -45,11 +49,14 @@ image-slot:hover { transform: translateY(-3px); box-shadow: 0 20px 48px color-mi
 .platform-panel.is-active { display: block; animation: platformFade 0.35s ease both; }
 @keyframes platformFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-.solution-card { transition: transform 0.35s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.35s ease, border-color 0.35s ease; }
+.solution-card { display: flex; flex-direction: column; height: 100%; transition: transform 0.35s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.35s ease, border-color 0.35s ease; }
+.solution-card .solution-chips { align-content: flex-start; }
+.solution-card .solution-media { margin-top: auto; }
 .solution-card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, #f3f2f2 45%, transparent) !important; box-shadow: 0 20px 44px rgba(0,0,0,0.28); }
 
 @media (prefers-reduced-motion: no-preference) {
   .reveal-on-scroll { animation: revealUp linear both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
+  .hero-media { animation: revealUp 0.9s 0.12s cubic-bezier(0.2,0.7,0.2,1) both; }
   @keyframes revealUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 }
 </style>
@@ -81,8 +88,13 @@ image-slot:hover { transform: translateY(-3px); box-shadow: 0 20px 48px color-mi
 </section>
 
 <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px,5vw,64px) clamp(56px,7vw,96px);">
-  <div style="position: relative; width: 100%; aspect-ratio: 21/9; border-radius: 12px; overflow: hidden;">
-    <iframe id="hero-video-frame" src="https://player.vimeo.com/video/1223043005?h=9174ca2405&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;quality=1080p" title="PerceptX platform demo" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen style="position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; min-width: 100%; min-height: 100%; transform: translate(-50%,-50%) scale(1.02); pointer-events: none;"></iframe>
+  <!-- Outer: positioning + entrance animation only. No border, no radius. -->
+  <div class="hero-media" style="position: relative; width: 100%;">
+    <!-- Frame: owns border, radius, padding, shadow -->
+    <div style="position: relative; border-radius: 12px; border: 1px solid var(--color-divider); padding: 10px; background: var(--color-surface); box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-text) 14%, transparent), var(--shadow-md);">
+      <!-- Media: owns the aspect ratio -->
+      <iframe id="hero-video-frame" src="https://player.vimeo.com/video/1223043005?h=9174ca2405&amp;background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1&amp;quality=1080p" title="PerceptX physical AI platform demo" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen style="display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 4px; background: var(--color-accent-900); pointer-events: none;"></iframe>
+    </div>
   </div>
   <script src="https://player.vimeo.com/api/player.js"></script>
   <script>
@@ -156,38 +168,38 @@ image-slot:hover { transform: translateY(-3px); box-shadow: 0 20px 48px color-mi
     <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(32px,4.4vw,56px); line-height: 1.08; letter-spacing: -0.02em; max-width: 900px; margin: 0;">Two ways the platform reaches the floor.</h2>
     <p style="font-size: 17px; line-height: 1.6; max-width: 680px; margin: 24px 0 0; color: color-mix(in srgb, #f3f2f2 80%, transparent);">Start where the constraint is — what the cameras learn about your parts and standards is what the robots inherit.</p>
   </div>
-  <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px,5vw,64px) clamp(56px,7vw,104px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: clamp(32px,4vw,64px);">
+  <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px,5vw,64px) clamp(56px,7vw,104px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: clamp(32px,4vw,64px); align-items: stretch;">
     <div class="solution-card" style="background: linear-gradient(to right, transparent, color-mix(in srgb, #f3f2f2 40%, transparent) 56px, color-mix(in srgb, #f3f2f2 40%, transparent) calc(100% - 56px), transparent) no-repeat top / 100% 2px; padding: 28px 20px 20px; border: 1px solid transparent; border-radius: 12px;">
-      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, #f3f2f2 65%, transparent); margin-bottom: 16px;">The platform, watching</span>
+      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, #f3f2f2 65%, transparent); margin-bottom: 16px; min-height: 2.6em;">The platform, watching</span>
       <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px,3.4vw,42px); letter-spacing: -0.02em; margin: 0 0 20px;">Vision AI Operator</h3>
-      <p style="font-size: 16px; line-height: 1.6; margin: 0 0 24px; color: color-mix(in srgb, #f3f2f2 82%, transparent);">The cameras you already own, holding every unit to your written standard. Runs on-premises — video never leaves your network.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;">
+      <p style="font-size: 16px; line-height: 1.6; margin: 0 0 24px; min-height: 3.2em; color: color-mix(in srgb, #f3f2f2 82%, transparent);">The cameras you already own, holding every unit to your written standard. Runs on-premises — video never leaves your network.</p>
+      <div class="solution-chips" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; min-height: 62px;">
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Quality</span>
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Safety &amp; PPE</span>
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Cycle &amp; flow</span>
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Work instruction compliance</span>
       </div>
-      <div style="width: 100%; aspect-ratio: 16/10;"><image-slot id="sol-vision" shape="rect" src="uploads/vision-operator-ui.png" placeholder="Vision operator UI — live line with detected exception" style="width: 100%; height: 100%;"></image-slot></div>
+      <div class="solution-media" style="width: 100%; aspect-ratio: 16/10;"><image-slot id="sol-vision" shape="rect" src="uploads/vision-operator-ui.png" placeholder="Vision operator UI — live line with detected exception" style="width: 100%; height: 100%;"></image-slot></div>
     </div>
     <div class="solution-card" style="background: linear-gradient(to right, transparent, color-mix(in srgb, #f3f2f2 40%, transparent) 56px, color-mix(in srgb, #f3f2f2 40%, transparent) calc(100% - 56px), transparent) no-repeat top / 100% 2px; padding: 28px 20px 20px; border: 1px solid transparent; border-radius: 12px;">
-      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, #f3f2f2 65%, transparent); margin-bottom: 16px;">Introducing Arc — the platform, acting</span>
+      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, #f3f2f2 65%, transparent); margin-bottom: 16px; min-height: 2.6em;">The platform, orchestrating</span>
       <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px,3.4vw,42px); letter-spacing: -0.02em; margin: 0 0 20px;">Arc</h3>
-      <p style="font-size: 16px; line-height: 1.6; margin: 0 0 24px; color: color-mix(in srgb, #f3f2f2 82%, transparent);">The same layer, given hands. A cell that is shown the job instead of programmed into it.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;">
+      <p style="font-size: 16px; line-height: 1.6; margin: 0 0 24px; min-height: 3.2em; color: color-mix(in srgb, #f3f2f2 82%, transparent);">Arc connects frontier models, factory data, and hardware to turn intelligence into real-world action.</p>
+      <div class="solution-chips" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; min-height: 62px;">
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Assembly</span>
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Kitting</span>
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Machine tending</span>
         <span class="chip" style="border: 2px solid color-mix(in srgb, #f3f2f2 40%, transparent); padding: 6px 12px; font-size: 13px; letter-spacing: 0.02em; color: #f3f2f2;">Packaging</span>
       </div>
-      <div style="width: 100%; aspect-ratio: 16/10;"><image-slot id="sol-arc" shape="rect" src="uploads/robot-cell.png" placeholder="Arc — dual-arm cell handling a machined part" style="width: 100%; height: 100%;"></image-slot></div>
+      <div class="solution-media" style="width: 100%; aspect-ratio: 16/10;"><image-slot id="sol-arc" shape="rect" src="uploads/robot-cell.png" placeholder="Arc — dual-arm cell handling a machined part" style="width: 100%; height: 100%;"></image-slot></div>
     </div>
   </div>
 </section>
 
 <section style="background: linear-gradient(to right, transparent, var(--color-divider) 56px, var(--color-divider) calc(100% - 56px), transparent) no-repeat top / 100% 2px;">
   <div style="max-width: 1240px; margin: 0 auto; padding: clamp(56px,7vw,104px) clamp(20px,5vw,64px);">
-    <blockquote style="margin: 0; max-width: 900px;">
-      <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(24px,3.4vw,44px); line-height: 1.2; letter-spacing: -0.02em; margin: 0; color: var(--color-text);">“It started catching things we’d normally miss until later — helping us avoid line stops and keep bad units from moving downstream.”</p>
+    <blockquote style="margin: 0; max-width: 760px;">
+      <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(20px,2.3vw,30px); line-height: 1.4; letter-spacing: -0.01em; margin: 0; color: var(--color-text);">“It started catching things we’d normally miss until later — helping us avoid line stops and keep bad units from moving downstream.”</p>
       <footer style="font-size: 14px; margin-top: 24px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Plant Manager · Vision AI Operator pilot</footer>
     </blockquote>
   </div>
@@ -207,9 +219,13 @@ image-slot:hover { transform: translateY(-3px); box-shadow: 0 20px 48px color-mi
   <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px,5vw,64px) clamp(56px,7vw,104px);">
     <div style="background: linear-gradient(to right, transparent, var(--color-divider) 56px, var(--color-divider) calc(100% - 56px), transparent) no-repeat top / 100% 2px; padding-top: 28px;">
       <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin-bottom: 24px;">Programs &amp; partners</span>
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(24px,4vw,56px); align-items: center;">
-        <image-slot id="partner-nvidia" shape="rect" fit="contain" src="uploads/nvidia-inception.png" placeholder="NVIDIA Inception badge" style="width: 180px; height: 72px;"></image-slot>
-        <image-slot id="partner-google" shape="rect" fit="contain" src="uploads/google-for-startups.png" placeholder="Google for Startups badge" style="width: 180px; height: 72px;"></image-slot>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+        <div style="display: flex; align-items: center; justify-content: center; border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent); border-radius: 8px; padding: 14px 22px;" class="partner-logo">
+          <image-slot id="partner-nvidia" shape="rect" fit="contain" src="uploads/nvidia-inception.png" placeholder="NVIDIA Inception badge" style="width: 93px; height: 40px;"></image-slot>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent); border-radius: 8px; padding: 14px 22px;" class="partner-logo">
+          <image-slot id="partner-google" shape="rect" fit="contain" src="uploads/google-for-startups.png" placeholder="Google for Startups badge" style="width: 93px; height: 40px;"></image-slot>
+        </div>
       </div>
     </div>
   </div>
@@ -248,20 +264,20 @@ image-slot:hover { transform: translateY(-3px); box-shadow: 0 20px 48px color-mi
 
 <script>
 (function () {
-  var tabs = document.querySelectorAll(".platform-tab");
-  var panels = document.querySelectorAll(".platform-panel");
-  tabs.forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      var layer = tab.getAttribute("data-layer");
-      tabs.forEach(function (t) {
-        var active = t === tab;
-        t.classList.toggle("is-active", active);
-        t.setAttribute("aria-selected", active ? "true" : "false");
-      });
-      panels.forEach(function (panel) {
-        var active = panel.getAttribute("data-layer") === layer;
-        panel.classList.toggle("is-active", active);
-      });
+  document.addEventListener("click", function (e) {
+    var tab = e.target.closest && e.target.closest(".platform-tab");
+    if (!tab) return;
+    var layer = tab.getAttribute("data-layer");
+    var tabsRoot = tab.closest(".platform-tabs") || document;
+    var panelsRoot = document.querySelector(".platform-panels") || document;
+    tabsRoot.querySelectorAll(".platform-tab").forEach(function (t) {
+      var active = t === tab;
+      t.classList.toggle("is-active", active);
+      t.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    panelsRoot.querySelectorAll(".platform-panel").forEach(function (panel) {
+      var active = panel.getAttribute("data-layer") === layer;
+      panel.classList.toggle("is-active", active);
     });
   });
 })();
