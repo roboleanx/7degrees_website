@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-2ec08703-dcb7-4ee0-94e7-a5cb53bf2fb6/styles.css">
+<script src="_ds/modernist-2ec08703-dcb7-4ee0-94e7-a5cb53bf2fb6/_ds_bundle.js"></script>
+<title>Contact — PerceptX</title>
+<style>
+:root {
+  --color-accent: #201e1d;
+  --color-accent-100: #f2f2f2; --color-accent-200: #e0e0e0; --color-accent-300: #c4c4c4;
+  --color-accent-400: #979797; --color-accent-500: #6b6b6b; --color-accent-600: #454343;
+  --color-accent-700: #2d2b2b; --color-accent-800: #1a1918; --color-accent-900: #0d0c0c;
+  --color-accent-2: #201e1d;
+  --color-accent-2-100: #f2f2f2; --color-accent-2-200: #e0e0e0; --color-accent-2-300: #c4c4c4;
+  --color-accent-2-400: #979797; --color-accent-2-500: #6b6b6b; --color-accent-2-600: #454343;
+  --color-accent-2-700: #2d2b2b; --color-accent-2-800: #1a1918; --color-accent-2-900: #0d0c0c;
+}
+body { margin: 0; text-wrap: pretty; }
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { color: var(--color-accent-600); }
+</style>
+</helmet>
+
+<nav class="nav" style="padding-inline: clamp(20px,5vw,64px); position: sticky; top: 0; background: var(--color-bg); z-index: 10; display: flex; align-items: center; gap: clamp(16px,3vw,36px);">
+  <a href="./PerceptX Home.dc.html" class="nav-brand" style="display: flex; align-items: center; gap: 12px; color: inherit; margin-right: auto; font-size: 1.17em;">
+    <img src="uploads/Logo_X_favicon_white.png" alt="PerceptX" style="width: 32px; height: 32px; display: block; object-fit: contain;">
+    PerceptX
+  </a>
+  <a href="./PerceptX Home.dc.html#platform" style="font-size: 14px;">Platform</a>
+  <a href="./PerceptX Home.dc.html#solutions" style="font-size: 14px;">Solutions</a>
+  <a href="./ROI Calculator.dc.html" style="font-size: 14px;">ROI calculator</a>
+  <a href="./Contact.dc.html" aria-current="page" style="font-size: 14px; font-weight: 700;">Contact</a>
+</nav>
+
+<section style="max-width: 1240px; margin: 0 auto; padding: clamp(64px,8vw,128px) clamp(20px,5vw,64px) clamp(40px,5vw,64px);">
+  <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 24px;">Contact</span>
+  <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(44px,7.5vw,96px); line-height: 1.0; letter-spacing: -0.025em; margin: 0; max-width: 900px; color: var(--color-text);">Start with one line.</h1>
+  <p style="font-size: clamp(17px,1.5vw,19px); line-height: 1.6; max-width: 600px; margin: 32px 0 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Tell us the constraint you would fix first. We will come back with what the first ninety days would look like on your floor — and what it would be measured against.</p>
+</section>
+
+<div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px,5vw,64px) clamp(64px,8vw,120px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: clamp(32px,5vw,80px); align-items: start;">
+  <div>
+    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+      <form style="display: flex; flex-direction: column; gap: 20px; border-top: 2px solid var(--color-divider); padding-top: 32px;" onSubmit="{{ handleSubmit }}">
+        <div class="field">
+          <label>What are you after?</label>
+          <select class="input" required="{{ true }}" value="{{ intent }}" onChange="{{ setIntent }}">
+            <option value="">Select one</option>
+            <option value="Private demo — Vision AI Operator">Private demo — Vision AI Operator</option>
+            <option value="Arc robotics pilot">Arc robotics pilot</option>
+            <option value="Both">Both</option>
+            <option value="Partnership or investment">Partnership or investment</option>
+            <option value="Something else">Something else</option>
+          </select>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 20px;">
+          <div class="field">
+            <label>Name</label>
+            <input class="input" type="text" required="{{ true }}" value="{{ name }}" onChange="{{ setName }}">
+          </div>
+          <div class="field">
+            <label>Work email</label>
+            <input class="input" type="email" required="{{ true }}" value="{{ email }}" onChange="{{ setEmail }}">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 20px;">
+          <div class="field">
+            <label>Company</label>
+            <input class="input" type="text" required="{{ true }}" value="{{ company }}" onChange="{{ setCompany }}">
+          </div>
+          <div class="field">
+            <label>Role</label>
+            <input class="input" type="text" value="{{ role }}" onChange="{{ setRole }}">
+          </div>
+        </div>
+        <div class="field">
+          <label>The constraint you would fix first</label>
+          <textarea class="input" rows="5" required="{{ true }}" value="{{ message }}" onChange="{{ setMessage }}" placeholder="e.g. escaped defects on final assembly, or two shifts of manual kitting we cannot staff"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 8px; align-self: flex-start;">Send</button>
+      </form>
+    </sc-if>
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top: 2px solid var(--color-divider); padding-top: 32px;">
+        <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(26px,3vw,34px); letter-spacing: -0.015em; margin: 0 0 14px; color: var(--color-text);">Received.</h2>
+        <p style="font-size: 16px; line-height: 1.6; margin: 0; max-width: 460px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Someone from the team will reply within two business days — usually with a question before a calendar link.</p>
+      </div>
+    </sc-if>
+  </div>
+
+  <aside style="border-top: 2px solid var(--color-divider); padding-top: 32px; display: flex; flex-direction: column; gap: 32px;">
+    <div>
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.005em; margin: 0 0 12px; color: var(--color-text);">What a demo looks like</h2>
+      <p style="font-size: 15px; line-height: 1.6; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Forty-five minutes, live system, your footage if you can share it. No slides until you ask for them.</p>
+    </div>
+    <div>
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.005em; margin: 0 0 12px; color: var(--color-text);">Arc pilots</h2>
+      <p style="font-size: 15px; line-height: 1.6; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Scoped to one cell and one measurable number. We take a small number per quarter so each gets real engineering time.</p>
+    </div>
+    <div>
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.005em; margin: 0 0 12px; color: var(--color-text);">Direct</h2>
+      <p style="font-size: 15px; line-height: 1.7; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">
+        <a href="mailto:info@percept-x.ai">info@percept-x.ai</a><br>
+        RoboLeanX LLC<br>
+        3540 Toringdon Way, Suite 200<br>
+        Charlotte, NC 28277 · USA
+      </p>
+    </div>
+  </aside>
+</div>
+
+<footer style="max-width: 1240px; margin: 0 auto; padding: 44px clamp(20px,5vw,64px); border-top: 2px solid var(--color-divider); display: flex; flex-direction: column; gap: 20px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+    <span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-text);">PerceptX</span>
+    <span style="display: flex; flex-wrap: wrap; gap: 24px;">
+      <a href="./PerceptX Home.dc.html" style="color: inherit;">Home</a>
+      <a href="./PerceptX Home.dc.html#platform" style="color: inherit;">Platform</a>
+      <a href="./ROI Calculator.dc.html" style="color: inherit;">ROI calculator</a>
+    </span>
+  </div>
+  <span>© 2026 RoboLeanX LLC. All rights reserved.</span>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { submitted: false, intent: '', name: '', email: '', company: '', role: '', message: '' };
+  renderVals() {
+    const f = (k) => (e) => this.setState({ [k]: e.target.value });
+    return {
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      intent: this.state.intent, name: this.state.name, email: this.state.email,
+      company: this.state.company, role: this.state.role, message: this.state.message,
+      setIntent: f('intent'), setName: f('name'), setEmail: f('email'),
+      setCompany: f('company'), setRole: f('role'), setMessage: f('message'),
+      handleSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>
