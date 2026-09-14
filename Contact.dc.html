@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#09090a">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -10,33 +11,80 @@
 <helmet>
 <link rel="stylesheet" href="_ds/modernist-2ec08703-dcb7-4ee0-94e7-a5cb53bf2fb6/styles.css">
 <script src="_ds/modernist-2ec08703-dcb7-4ee0-94e7-a5cb53bf2fb6/_ds_bundle.js"></script>
-<title>Contact — PerceptX</title>
+<title>Contact — 7°</title>
+<link rel="icon" type="image/png" href="uploads/7degrees-icon-64.png">
 <style>
 :root {
-  --color-accent: #201e1d;
-  --color-accent-100: #f2f2f2; --color-accent-200: #e0e0e0; --color-accent-300: #c4c4c4;
-  --color-accent-400: #979797; --color-accent-500: #6b6b6b; --color-accent-600: #454343;
-  --color-accent-700: #2d2b2b; --color-accent-800: #1a1918; --color-accent-900: #0d0c0c;
-  --color-accent-2: #201e1d;
-  --color-accent-2-100: #f2f2f2; --color-accent-2-200: #e0e0e0; --color-accent-2-300: #c4c4c4;
-  --color-accent-2-400: #979797; --color-accent-2-500: #6b6b6b; --color-accent-2-600: #454343;
-  --color-accent-2-700: #2d2b2b; --color-accent-2-800: #1a1918; --color-accent-2-900: #0d0c0c;
+  color-scheme: dark;
+  /* Ground: the near-black of the mark, warmed a half-step so the glow sits in it. */
+  --color-bg: #09090a;
+  --color-surface: #121211;
+  --color-text: #f4f1ec;
+  --color-divider: color-mix(in srgb, #f4f1ec 16%, transparent);
+
+  /* Accent is the horizon light, not a brand red. */
+  --color-accent: #f0c48a;
+  --color-accent-100: #fdf4e8; --color-accent-200: #f9e6cd; --color-accent-300: #f5d6ae;
+  --color-accent-400: #f0c48a; --color-accent-500: #e2a862; --color-accent-600: #f6d7ab;
+  --color-accent-700: #cfa470; --color-accent-800: #8a6a44; --color-accent-900: #0d0b09;
+  --color-accent-2: #f0c48a;
+  --color-accent-2-100: #fdf4e8; --color-accent-2-200: #f9e6cd; --color-accent-2-300: #f5d6ae;
+  --color-accent-2-400: #f0c48a; --color-accent-2-500: #e2a862; --color-accent-2-600: #f6d7ab;
+  --color-accent-2-700: #cfa470; --color-accent-2-800: #8a6a44; --color-accent-2-900: #0d0b09;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.55);
+  --shadow-md: 0 8px 28px rgba(0,0,0,0.6);
+  --shadow-lg: 0 24px 64px rgba(0,0,0,0.7);
+
+  --glow: #f7d7a8;
 }
-body { margin: 0; text-wrap: pretty; }
-a { color: var(--color-accent); text-decoration: none; }
+body { margin: 0; text-wrap: pretty; background: var(--color-bg); color: var(--color-text); }
+a { color: var(--color-accent); text-decoration: none; transition: color 0.15s ease; }
 a:hover { color: var(--color-accent-600); }
+
+.eyebrow { font-size: 12px !important; letter-spacing: 0.22em !important; font-weight: 500; }
+
+.btn { border-radius: 8px; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* The eclipse rim, reused wherever a panel needs to read as lit. */
+.glow-panel {
+  border: 1px solid color-mix(in srgb, var(--glow) 58%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--glow) 14%, transparent),
+              0 0 28px 1px color-mix(in srgb, var(--glow) 20%, transparent),
+              0 0 120px 18px color-mix(in srgb, var(--glow) 8%, transparent);
+}
+
+.nav-toggle { display: none; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; background: none; border: 0; cursor: pointer; color: var(--color-text); }
+.nav-toggle svg { display: block; }
+.nav-links { display: flex; align-items: center; gap: clamp(16px,3vw,36px); }
+
+@media (max-width: 780px) {
+  .nav-toggle { display: inline-flex; margin-left: auto; }
+  .nav-links { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px; background: var(--color-bg); border-bottom: 1px solid var(--color-divider); padding: 8px clamp(20px,5vw,64px) 20px; display: none; box-shadow: var(--shadow-md); }
+  .nav-links.is-open { display: flex; }
+  .nav-links a { padding: 12px 0; }
+  .nav-links .btn { display: inline-block; text-align: center; margin-top: 8px; }
+}
 </style>
 </helmet>
 
-<nav class="nav" style="padding-inline: clamp(20px,5vw,64px); position: sticky; top: 0; background: var(--color-bg); z-index: 10; display: flex; align-items: center; gap: clamp(16px,3vw,36px);">
-  <a href="./PerceptX Home.dc.html" class="nav-brand" style="display: flex; align-items: center; gap: 12px; color: inherit; margin-right: auto; font-size: 1.17em;">
-    <img src="uploads/Logo_X_favicon_white.png" alt="PerceptX" style="width: 32px; height: 32px; display: block; object-fit: contain;">
-    PerceptX
+<nav class="nav" style="padding-inline: clamp(20px,5vw,64px); position: sticky; top: 0; background: color-mix(in srgb, var(--color-bg) 85%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 10; display: flex; align-items: center; gap: clamp(16px,3vw,36px);">
+  <a href="./index.dc.html" class="nav-brand" aria-label="Seven Degrees" style="display: flex; align-items: center; margin-right: auto;">
+    <img src="uploads/7degrees-320.png" alt="Seven Degrees" width="40" height="40" style="width: 42px; height: 42px; display: block; object-fit: cover; mix-blend-mode: screen; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 54%, transparent 74%); mask-image: radial-gradient(circle at 50% 50%, #000 54%, transparent 74%);">
   </a>
-  <a href="./PerceptX Home.dc.html#platform" style="font-size: 14px;">Platform</a>
-  <a href="./PerceptX Home.dc.html#solutions" style="font-size: 14px;">Solutions</a>
-  <a href="./ROI Calculator.dc.html" style="font-size: 14px;">ROI calculator</a>
-  <a href="./Contact.dc.html" aria-current="page" style="font-size: 14px; font-weight: 700;">Contact</a>
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 6H19M3 11H19M3 16H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="./index.dc.html#platform" style="font-size: 14px;">Platform</a>
+    <a href="./index.dc.html#solutions" style="font-size: 14px;">Solutions</a>
+    <a href="./ROI Calculator.dc.html" style="font-size: 14px;">ROI calculator</a>
+    <a href="./Contact.dc.html" aria-current="page" style="font-size: 14px; font-weight: 700;">Contact</a>
+  </div>
 </nav>
 
 <section style="max-width: 1240px; margin: 0 auto; padding: clamp(64px,8vw,128px) clamp(20px,5vw,64px) clamp(40px,5vw,64px);">
@@ -53,8 +101,8 @@ a:hover { color: var(--color-accent-600); }
           <label>What are you after?</label>
           <select class="input" required="{{ true }}" value="{{ intent }}" onChange="{{ setIntent }}">
             <option value="">Select one</option>
-            <option value="Private demo — Vision AI Operator">Private demo — Vision AI Operator</option>
-            <option value="Arc robotics pilot">Arc robotics pilot</option>
+            <option value="Private demo — 7° Sense">Private demo — 7° Sense</option>
+            <option value="7° Arc robotics pilot">7° Arc robotics pilot</option>
             <option value="Both">Both</option>
             <option value="Partnership or investment">Partnership or investment</option>
             <option value="Something else">Something else</option>
@@ -101,13 +149,13 @@ a:hover { color: var(--color-accent-600); }
       <p style="font-size: 15px; line-height: 1.6; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Forty-five minutes, live system, your footage if you can share it. No slides until you ask for them.</p>
     </div>
     <div>
-      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.005em; margin: 0 0 12px; color: var(--color-text);">Arc pilots</h2>
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.005em; margin: 0 0 12px; color: var(--color-text);">7° Arc pilots</h2>
       <p style="font-size: 15px; line-height: 1.6; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Scoped to one cell and one measurable number. We take a small number per quarter so each gets real engineering time.</p>
     </div>
     <div>
       <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.005em; margin: 0 0 12px; color: var(--color-text);">Direct</h2>
       <p style="font-size: 15px; line-height: 1.7; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">
-        <a href="mailto:info@percept-x.ai">info@percept-x.ai</a><br>
+        <a href="mailto:info@sevendegrees.ai">info@sevendegrees.ai</a><br>
         RoboLeanX LLC<br>
         3540 Toringdon Way, Suite 200<br>
         Charlotte, NC 28277 · USA
@@ -116,19 +164,46 @@ a:hover { color: var(--color-accent-600); }
   </aside>
 </div>
 
-<footer style="max-width: 1240px; margin: 0 auto; padding: 44px clamp(20px,5vw,64px); border-top: 2px solid var(--color-divider); display: flex; flex-direction: column; gap: 20px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
-  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
-    <span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-text);">PerceptX</span>
+<footer style="max-width: 1240px; margin: 0 auto; padding: 44px clamp(20px,5vw,64px) 36px; border-top: 1px solid var(--color-divider); display: flex; flex-direction: column; gap: 20px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--color-divider);">
+    <a href="./index.dc.html" aria-label="Seven Degrees" style="display: block; font-family: var(--font-heading); font-weight: 800; font-size: clamp(72px,11vw,132px); line-height: 0.82; letter-spacing: -0.035em; color: var(--color-text);">7°</a>
     <span style="display: flex; flex-wrap: wrap; gap: 24px;">
-      <a href="./PerceptX Home.dc.html" style="color: inherit;">Home</a>
-      <a href="./PerceptX Home.dc.html#platform" style="color: inherit;">Platform</a>
+      <a href="./index.dc.html" style="color: inherit;">Home</a>
+      <a href="./index.dc.html#platform" style="color: inherit;">Platform</a>
       <a href="./ROI Calculator.dc.html" style="color: inherit;">ROI calculator</a>
+      <a href="./Contact.dc.html" style="color: inherit;">Contact</a>
     </span>
+  </div>
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+    <span>RoboLeanX LLC · 3540 Toringdon Way, Suite 200 · Charlotte, NC 28277 · USA</span>
+    <a href="mailto:info@sevendegrees.ai" style="color: inherit;">info@sevendegrees.ai</a>
   </div>
   <span>© 2026 RoboLeanX LLC. All rights reserved.</span>
 </footer>
 
 </x-dc>
+<script>
+(function () {
+  document.addEventListener("click", function (e) {
+    var links = document.getElementById("nav-links");
+    var toggle = document.getElementById("nav-toggle");
+    if (!links || !toggle) return;
+    var target = e.target;
+    var hitToggle = target.closest ? target.closest("#nav-toggle") : null;
+    if (hitToggle) {
+      var open = !links.classList.contains("is-open");
+      links.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      return;
+    }
+    if (!links.classList.contains("is-open")) return;
+    if (!links.contains(target) || (target.closest && target.closest("a"))) {
+      links.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+})();
+</script>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { submitted: false, intent: '', name: '', email: '', company: '', role: '', message: '' };
