@@ -89,7 +89,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 <nav class="nav" style="padding-inline: clamp(20px,5vw,64px); position: sticky; top: 0; background: color-mix(in srgb, var(--color-bg) 85%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 10; display: flex; align-items: center; gap: clamp(16px,3vw,36px);">
   <a href="./index.dc.html" class="nav-brand" aria-label="Seven Degrees" style="display: flex; align-items: center; margin-right: auto;">
-    <img src="uploads/7degrees-320.png" alt="Seven Degrees" width="40" height="40" style="width: 42px; height: 42px; display: block; object-fit: cover; mix-blend-mode: screen; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 54%, transparent 74%); mask-image: radial-gradient(circle at 50% 50%, #000 54%, transparent 74%);">
+    <img src="uploads/7degrees_3.png" alt="Seven Degrees" style="height: 50px; width: auto; display: block; object-fit: contain;">
   </a>
   <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,47 +123,50 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     <div class="calc-stack">
     <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
       <div class="calc-card">
-        <div class="calc-card-head">
-          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(17px,1.9vw,20px); letter-spacing: -0.01em; margin: 0 0 4px; color: var(--color-text);">{{ row.label }}</p>
-          <p style="font-size: 13px; line-height: 1.45; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent);">{{ row.note }}</p>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; align-items: end;">
+        <div class="calc-card-head" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
           <div>
-            <label for="{{ row.countId }}" style="display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-bottom: 6px;">Per year</label>
+            <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(17px,1.9vw,20px); letter-spacing: -0.01em; margin: 0 0 4px; color: var(--color-text);">{{ row.label }}</p>
+            <p style="font-size: 13px; line-height: 1.45; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent);">{{ row.note }}</p>
+          </div>
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(14px,1.4vw,16px); letter-spacing: -0.005em; color: var(--color-accent); white-space: nowrap; padding-top: 2px;">{{ row.valueLabel }}</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px;">
+          <div>
+            <label for="{{ row.countId }}" style="display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-bottom: 6px;">Events / year</label>
             <input id="{{ row.countId }}" class="input" type="number" min="0" step="1" value="{{ row.count }}" onChange="{{ row.setCount }}" style="width: 100%; font-size: 15px; padding: 8px 10px;">
           </div>
           <div>
-            <label for="{{ row.costId }}" style="display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-bottom: 6px;">Cost each</label>
+            <label for="{{ row.costId }}" style="display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-bottom: 6px;">Cost / event ($)</label>
             <input id="{{ row.costId }}" class="input" type="number" min="0" step="10" value="{{ row.cost }}" onChange="{{ row.setCost }}" style="width: 100%; font-size: 15px; padding: 8px 10px;">
-          </div>
-          <div style="text-align: right;">
-            <span style="display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-bottom: 6px;">Annual</span>
-            <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(18px,2.1vw,22px); letter-spacing: -0.015em; margin: 0; padding-bottom: 8px; color: var(--color-text);">{{ row.totalLabel }}</p>
           </div>
         </div>
       </div>
     </sc-for>
     </div>
+    <p style="font-size: 12px; line-height: 1.6; margin: 16px 0 0; color: color-mix(in srgb, var(--color-text) 55%, transparent);">{{ assumptionsNote }}</p>
   </div>
 
   <div class="calc-result glow-panel" style="position: sticky; top: 96px; background: var(--color-bg); color: var(--color-text); border-radius: 14px; padding: clamp(26px,3.5vw,40px);">
-    <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-bottom: 18px;">Annual exposure</span>
-    <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(40px,6vw,78px); line-height: 0.95; letter-spacing: -0.035em; margin: 0; overflow-wrap: anywhere;">{{ exposureLabel }}</p>
-    <p style="font-size: 15px; line-height: 1.6; margin: 18px 0 0; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Across {{ eventsLabel }} events a year.</p>
+    <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-bottom: 18px;">Estimated annual value</span>
+    <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(40px,6vw,78px); line-height: 0.95; letter-spacing: -0.035em; margin: 0; overflow-wrap: anywhere;">{{ valueLabel }}</p>
+    <p style="font-size: 15px; line-height: 1.6; margin: 18px 0 0; color: color-mix(in srgb, var(--color-text) 80%, transparent);">What 7° Sense saves you by catching these failures before they turn into cost.</p>
 
-    <div style="border-top: 2px solid color-mix(in srgb, var(--color-text) 40%, transparent); margin-top: 28px; padding-top: 24px; display: flex; flex-direction: column; gap: 22px;">
-      <div>
-        <span style="display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin-bottom: 8px;">Largest single line</span>
-        <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(24px,3vw,34px); letter-spacing: -0.02em; margin: 0 0 8px;">{{ topLabel }}</p>
-        <p style="font-size: 14px; line-height: 1.5; margin: 0; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ topNote }}</p>
+    <div style="border-top: 2px solid color-mix(in srgb, var(--color-text) 40%, transparent); margin-top: 28px; padding-top: 24px; display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+        <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Events prevented / year</span>
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 18px; white-space: nowrap;">{{ eventsPreventedLabel }}</span>
       </div>
-      <div>
-        <span style="display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin-bottom: 8px;">Per production day</span>
-        <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(24px,3vw,34px); letter-spacing: -0.02em; margin: 0;">{{ perDayLabel }}</p>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+        <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent); white-space: nowrap;">Biggest value driver</span>
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 16px; text-align: right;">{{ topLabel }}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+        <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Value per production day</span>
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 18px; white-space: nowrap;">{{ perDayLabel }}</span>
       </div>
     </div>
 
-    <a href="./Contact.dc.html" class="btn" style="margin-top: 30px; font-size: 15px; background: var(--color-accent); color: #14110d; border: 2px solid var(--color-accent);">Scope a pilot against this number</a>
+    <a href="./Contact.dc.html" class="btn" style="margin-top: 30px; font-size: 15px; background: var(--color-accent); color: #14110d; border: 2px solid var(--color-accent); display: block; text-align: center;">{{ ctaLabel }}</a>
   </div>
 </div>
 </sc-if>
@@ -244,7 +247,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 <footer style="max-width: 1240px; margin: 0 auto; padding: 44px clamp(20px,5vw,64px) 36px; border-top: 1px solid var(--color-divider); display: flex; flex-direction: column; gap: 20px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
   <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--color-divider);">
-    <a href="./index.dc.html" aria-label="Seven Degrees" style="display: block; font-family: var(--font-heading); font-weight: 800; font-size: clamp(72px,11vw,132px); line-height: 0.82; letter-spacing: -0.035em; color: var(--color-text);">7°</a>
+    <a href="./index.dc.html" aria-label="Seven Degrees" style="display: block;"><img src="uploads/7degrees_3.png" alt="Seven Degrees" style="display: block; height: clamp(91px,13.9vw,167px); width: auto; object-fit: contain;"></a>
     <span style="display: flex; flex-wrap: wrap; gap: 24px;">
       <a href="./index.dc.html" style="color: inherit;">Home</a>
       <a href="./index.dc.html#platform" style="color: inherit;">Platform</a>
@@ -289,12 +292,12 @@ const PROD_DAYS = 250;
 class Component extends DCLogic {
   state = {
     mode: 'vision',
-    open: 3, weeks: 20, hours: 80, gapRate: 65,
+    open: 2, weeks: 25, hours: 80, gapRate: 200,
     rows: [
-      { key: 'escape', label: 'Quality escape', note: 'Caught downstream or by the customer, not at the station.', count: 240, cost: 320 },
-      { key: 'safety', label: 'Recordable safety incident', note: 'Claim, lost time, investigation and premium.', count: 3, cost: 42000 },
-      { key: 'down', label: 'Unplanned line stoppage', note: 'Per event, from stop to steady state again.', count: 60, cost: 4800 },
-      { key: 'starve', label: 'Line starved for material', note: 'Running dry because nobody flagged the bin.', count: 120, cost: 1900 },
+      { key: 'escape', label: 'Quality escape', noun: 'quality escapes', note: 'Caught downstream or by the customer, not at the station.', count: 240, cost: 320, prevent: 0.9 },
+      { key: 'safety', label: 'Recordable safety incident', noun: 'recordable incidents', note: 'Claim, lost time, investigation and premium.', count: 3, cost: 42000, prevent: 0.7 },
+      { key: 'down', label: 'Unplanned line stoppage', noun: 'unplanned line stoppages', note: 'Per event, from stop to steady state again.', count: 60, cost: 4800, prevent: 0.6 },
+      { key: 'starve', label: 'Line starved for material', noun: 'material starve-outs', note: 'Running dry because nobody flagged the bin.', count: 120, cost: 1900, prevent: 0.85 },
     ],
   };
 
@@ -330,26 +333,31 @@ class Component extends DCLogic {
     const arc = uncoveredHours * ARC_RATE;
     const net = gapCost - arc;
 
+    const rowValue = (r) => r.count * r.cost * r.prevent;
     const rows = s.rows.map((r, i) => ({
       ...r,
       countId: 'ct-' + r.key,
       costId: 'cs-' + r.key,
-      totalLabel: m(r.count * r.cost),
+      valueLabel: '+' + m(rowValue(r)) + '/yr value',
       setCount: (e) => this.updateRow(i, 'count', e.target.value),
       setCost: (e) => this.updateRow(i, 'cost', e.target.value),
     }));
-    const exposure = s.rows.reduce((a, r) => a + r.count * r.cost, 0);
-    const events = s.rows.reduce((a, r) => a + r.count, 0);
-    const top = s.rows.reduce((a, r) => (r.count * r.cost > a.count * a.cost ? r : a), s.rows[0]);
+    const value = s.rows.reduce((a, r) => a + rowValue(r), 0);
+    const eventsPrevented = s.rows.reduce((a, r) => a + r.count * r.prevent, 0);
+    const top = s.rows.reduce((a, r) => (rowValue(r) > rowValue(a) ? r : a), s.rows[0]);
+    const byPrevent = [...s.rows].sort((a, b) => b.prevent - a.prevent);
+    const parts = byPrevent.map((r) => Math.round(r.prevent * 100) + '% of ' + r.noun);
+    const assumptionsNote = 'Value assumes 7° Sense prevents ' +
+      parts.slice(0, -1).join(', ') + ', and ' + parts[parts.length - 1] + '.';
 
     const pickHours = (h) => () => this.setState({ hours: h });
     const lastPill = (b) => b.replace('border-right-width: 0', 'border-right-width: 2px');
 
     return {
       isVision, isRobots: !isVision,
-      headline: isVision ? 'What does it cost when nobody is watching?' : 'What is the shift nobody applied for costing you?',
+      headline: isVision ? 'What could 7° Sense save you this year?' : 'What is the shift nobody applied for costing you?',
       subhead: isVision
-        ? 'Four events your cameras already see. Your numbers, your arithmetic.'
+        ? 'Four failure modes your cameras already see. Your numbers, your arithmetic.'
         : 'Arc is scoped to the seats you cannot fill. Price the vacancy, then price covering it at $15 an hour.',
       pickVision: () => this.setState({ mode: 'vision' }),
       pickRobots: () => this.setState({ mode: 'robots' }),
@@ -357,11 +365,12 @@ class Component extends DCLogic {
       tabRobotsStyle: this.tab(!isVision),
 
       rows,
-      exposureLabel: m(exposure),
-      eventsLabel: nf(events),
-      topLabel: m(top.count * top.cost),
-      topNote: top.label + ' — ' + nf(top.count) + ' a year at ' + m(top.cost) + ' each.',
-      perDayLabel: m(exposure / PROD_DAYS),
+      assumptionsNote,
+      valueLabel: m(value),
+      eventsPreventedLabel: nf(eventsPrevented) + '/yr',
+      topLabel: top.label + ' — ' + m(rowValue(top)),
+      perDayLabel: m(value / PROD_DAYS),
+      ctaLabel: 'Scope 7° Sense to capture ' + m(value) + '/yr',
 
       open: s.open,
       setOpen: (e) => this.setState({ open: Number(e.target.value) }),
