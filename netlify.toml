@@ -1,9 +1,20 @@
-[[redirects]]
-  from = "/"
-  to = "/index.dc.html"
-  status = 200
+[build]
+  publish = "."
+  command = ""
 
-[[redirects]]
-  from = "/index.html"
-  to = "/index.dc.html"
-  status = 200
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_ds/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

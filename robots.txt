@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_ds/
+Disallow: /screenshots/
+
+Sitemap: https://sevendegrees.ai/sitemap.xml
